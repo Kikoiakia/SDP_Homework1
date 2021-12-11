@@ -1,0 +1,77 @@
+Input1:
+5 4
+0 10 0 10
+45 35 0 30
+46 30 20 100
+200 10 10 1
+
+Expected output:
+W 0 banana
+0 10 0 0
+W 46 schweppes
+D 60 banana
+1 60 35 0
+D 106 schweppes
+2 106 30 20
+3 200 10 10
+
+Output got:
+W 0 banana
+0 10 0 0
+W 46 schweppes
+D 60 banana
+1 60 35 0
+D 106 schweppes
+2 106 30 20
+3 200 10 10
+
+
+Input2:
+2 2
+0 10 10 60
+60 100 0 0
+
+Expected output:
+W 0 banana
+W 0 schweppes
+D 60 banana
+D 60 schweppes
+0 60 10 10
+1 60 90 0
+
+Output got:
+W 0 banana
+W 0 schweppes
+D 60 banana
+D 60 schweppes
+0 60 10 10
+1 60 90 0
+
+Input3:
+4 1
+0 350 200 60
+
+Expected output:
+W 0 banana
+W 0 banana
+W 0 schweppes
+W 0 banana
+D 60 banana
+D 60 banana
+D 60 schweppes
+D 60 banana
+0 60 300 100
+
+Output got:
+W 0 banana
+W 0 banana
+W 0 schweppes
+W 0 banana
+D 60 banana
+D 60 banana
+D 60 schweppes
+D 60 banana
+0 60 300 100
+
+
+Unit Tests: All passed
