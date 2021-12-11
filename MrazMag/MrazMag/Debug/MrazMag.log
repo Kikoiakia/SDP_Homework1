@@ -1,2 +1,6 @@
-﻿  main.cpp
+﻿  implementation.cpp
+C:\Users\kiril\Desktop\Homework SDP\MrazMag\implementation.cpp(81,23): warning C4018: '<': signed/unsigned mismatch
+C:\Users\kiril\Desktop\Homework SDP\MrazMag\implementation.cpp(160,22): warning C4018: '<': signed/unsigned mismatch
+C:\Users\kiril\Desktop\Homework SDP\MrazMag\implementation.cpp(182,24): warning C4018: '<': signed/unsigned mismatch
+C:\Users\kiril\Desktop\Homework SDP\MrazMag\implementation.cpp(207,23): warning C4018: '<': signed/unsigned mismatch
   MrazMag.vcxproj -> C:\Users\kiril\Desktop\Homework SDP\MrazMag\Debug\MrazMag.exe

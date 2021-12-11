@@ -104,12 +104,13 @@ public:
 						int wantedBanana = clients[i].banana - workerBananas;
 						int wantedSchweppes = clients[i].schweppes - workerSchweppes;
 						while (wantedSchweppes >= 0 && wantedBanana >= 0) {
-							if (wantedBanana >= wantedSchweppes && availableWorkers > 0) {
+							if (wantedBanana > wantedSchweppes && availableWorkers > 0) {
 								actionHandler->onWorkerSend(minute, ResourceType::banana);
 								Worker worker = { clients[i].arriveMinute, ResourceType::banana };
 								workers.push_back(worker);
 								availableWorkers--;
 								wantedBanana -= RESTOCK_AMOUNT;
+								if (wantedBanana < 0) wantedBanana = 0;
 								workerBananas += RESTOCK_AMOUNT;
 							}
 							else if(wantedBanana < wantedSchweppes && availableWorkers > 0){
@@ -118,6 +119,7 @@ public:
 								workers.push_back(worker);
 								availableWorkers--;
 								wantedSchweppes -= RESTOCK_AMOUNT;
+								if (wantedSchweppes < 0) wantedSchweppes = 0;
 								workerSchweppes += RESTOCK_AMOUNT;
 							}
 							else {
@@ -154,13 +156,19 @@ public:
 		void RechargeStock(int minute)
 		{
 			bool recharged = false;
+			int time_recharged = 0;
 			for (int i = 0; i < workers.size(); i++) {
 				if (workers[i].minuteSend + RESTOCK_TIME <= minute && workers[i].minuteSend + RESTOCK_TIME >= localTime) {
 					actionHandler->onWorkerBack(workers[i].minuteSend + RESTOCK_TIME, workers[i].type);
-					if (workers[i].type == ResourceType::banana)
+					if (workers[i].type == ResourceType::banana) {
 						stockBananas += RESTOCK_AMOUNT;
-					else
+						workerBananas -= RESTOCK_AMOUNT;
+					}
+					else {
 						stockSchweppes += RESTOCK_AMOUNT;
+						workerSchweppes -= RESTOCK_AMOUNT;
+					}
+					time_recharged = workers[i].minuteSend + RESTOCK_TIME;
 					workers.erase(workers.begin() + i);
 					availableWorkers++;
 					recharged = true;
@@ -180,7 +188,7 @@ public:
 					if (away) continue;
 					if (clients[i].arriveMinute <= minute) {
 						if (clients[i].banana <= stockBananas && clients[i].schweppes <= stockSchweppes) {
-							actionHandler->onClientDepart(i, minute, clients[i].banana, clients[i].schweppes);
+							actionHandler->onClientDepart(i, time_recharged, clients[i].banana, clients[i].schweppes);
 							stockBananas -= clients[i].banana;
 							stockSchweppes -= clients[i].schweppes;
 							indexes.push_back(i);
